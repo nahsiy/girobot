@@ -8,7 +8,7 @@ import discord
 from discord.ext import commands
 from dotenv import load_dotenv
 import urbandictionary as ud
-from quote import list_quotes  # quotes personnelles
+from quote import QUOTES  # quotes personnelles
 
 logging.basicConfig(level=logging.DEBUG)
 LOGGER = logging.getLogger('discord')
@@ -41,8 +41,10 @@ class BotClient(discord.Client):
             "!urban": self.urbandef,
             "!echo": self.echo,
             "!help": self.rtfm,
-            "!rtfm": self.rtfm
+            "!rtfm": self.rtfm,
+            "!quote": self.show_random_quote
         }
+
         command = message.content.split()[0]
         if command in bot_commands:
             await bot_commands[command](message.channel, message.content[len(command) + 1:])
@@ -81,7 +83,7 @@ class BotClient(discord.Client):
 
     async def show_random_quote(self, channel, _rien):
         """Balance une quote random"""
-        quote = random.choice(list_quotes)
+        quote = random.choice(QUOTES)
         embed = discord.Embed(title="Quote", description=quote, color=0x0392E1)
         embed.set_thumbnail(url="https://share.yishan.io/images/quote.png")
         await channel.send(embed=embed)
