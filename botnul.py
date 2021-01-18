@@ -25,8 +25,6 @@ CENSORED_WORDS = (
     "tg",
     "menfou",
     "ftg",
-    "tg.",
-    "tg!",
 )
 
 
@@ -59,7 +57,7 @@ class BotClient(discord.Client):
         sentence = message.content.strip().lower()
         if sentence in CENSORED_SENTENCES:
             await message.delete()
-        elif command in CENSORED_WORDS:
+        elif command.startswith(CENSORED_WORDS):
             await message.delete()
 
     async def ping(self, channel, _payload):
