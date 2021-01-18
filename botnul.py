@@ -17,11 +17,16 @@ LOGGER.setLevel(logging.DEBUG)
 load_dotenv()
 TOKEN = os.getenv("DISCORD_TOKEN")
 
-CENSORED = (
-    "tg",
+CENSORED_SENTENCES = (
     "ta gueule",
-    "tg pour voir",
-    "ftg"
+)
+
+CENSORED_WORDS = (
+    "tg",
+    "menfou",
+    "ftg",
+    "tg.",
+    "tg!",
 )
 
 
@@ -31,7 +36,7 @@ class BotClient(discord.Client):
 
     async def on_ready(self):
         """The Discord client is ready"""
-        game = discord.Game("un pingouin qui fait du ski.")
+        game = discord.Game("Au nom de la lune, je vais tous vous punir.")
         await self.change_presence(status=discord.Status.online, activity=game)
 
     async def on_message(self, message):
@@ -45,10 +50,16 @@ class BotClient(discord.Client):
             "!quote": self.show_random_quote
         }
 
-        command = message.content.split()[0]
+        words = message.content.split()
+        if not words:
+            return
+        command = words[0]
         if command in bot_commands:
             await bot_commands[command](message.channel, message.content[len(command) + 1:])
-        if message.content.strip().lower() in CENSORED:
+        sentence = message.content.strip().lower()
+        if sentence in CENSORED_SENTENCES:
+            await message.delete()
+        elif command in CENSORED_WORDS:
             await message.delete()
 
     async def ping(self, channel, _payload):
