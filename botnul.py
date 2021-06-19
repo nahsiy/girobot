@@ -1,5 +1,6 @@
 """Bot discord de yishan"""
 import os
+import re
 import logging
 
 import random
@@ -48,17 +49,21 @@ class BotClient(discord.Client):
             "!quote": self.show_random_quote
         }
 
-        words = message.content.split()
+        words = re.findall(r'\w+', message.content)
         if not words:
             return
-        command = words[0]
-        if command in bot_commands:
-            await bot_commands[command](message.channel, message.content[len(command) + 1:])
         sentence = message.content.strip().lower()
         if sentence in CENSORED_SENTENCES:
             await message.delete()
-        elif command.startswith(CENSORED_WORDS):
-            await message.delete()
+            return
+        for word in words:
+            if word in CENSORED_WORDS:
+                await message.delete()
+                return
+        command = message.content.split()[0]
+        if command in bot_commands:
+            await bot_commands[command](message.channel, message.content[len(command) + 1:])
+
 
     async def ping(self, channel, _payload):
         """Sends pong"""
