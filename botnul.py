@@ -105,6 +105,7 @@ class BotClient(discord.Client):
     async def rtfm(self, channel, _payload):
         """Fuck you"""
         await channel.send("RTFM!")
+    
 
 
 DISCORD_NUL_BOT = BotClient()
