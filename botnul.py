@@ -9,7 +9,7 @@ import discord
 from discord.ext import commands
 from dotenv import load_dotenv
 import urbandictionary as ud
-from quote import QUOTES  # quotes personnelles
+from quote import list_quotes   # quotes personnelles
 
 logging.basicConfig(level=logging.DEBUG)
 LOGGER = logging.getLogger('discord')
@@ -97,7 +97,7 @@ class BotClient(discord.Client):
 
     async def show_random_quote(self, channel, _rien):
         """Balance une quote random"""
-        quote = random.choice(QUOTES)
+        quote = random.choice(list_quotes)
         embed = discord.Embed(title="Quote", description=quote, color=0x0392E1)
         embed.set_thumbnail(url="https://share.yishan.io/images/quote.png")
         await channel.send(embed=embed)
