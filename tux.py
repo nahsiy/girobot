@@ -4,12 +4,13 @@ import re
 import logging
 
 import random
+import json
 
 import discord
 from discord.ext import commands
 from dotenv import load_dotenv
 import urbandictionary as ud
-from quote import list_quotes   # quotes personnelles
+# from quote import list_quotes
 
 logging.basicConfig(level=logging.DEBUG)
 LOGGER = logging.getLogger('discord')
@@ -101,6 +102,8 @@ class BotClient(discord.Client):
 
     async def show_quote(self, channel, user_choice):
         """Choisit une quote de la list"""
+        with open("quote.json") as quote_file:
+            list_quotes = json.read(quote_file)
         if user_choice:
             quote = list_quotes[int(user_choice)]
         else:
@@ -109,6 +112,11 @@ class BotClient(discord.Client):
         embed.set_thumbnail(url="https://share.yishan.io/images/quote.png")
         await channel.send(embed=embed)
         
+    async def add_quote(self, channel, quote):
+        """Ajouter une quote"""
+
+
+
 
 DISCORD_NUL_BOT = BotClient()
 DISCORD_NUL_BOT.run(TOKEN)

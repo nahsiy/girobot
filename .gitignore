@@ -2,4 +2,4 @@ __pycache__
 .env
 quote.py
 .vscode
-quotes.py
+quotes.json
