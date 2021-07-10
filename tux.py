@@ -47,7 +47,8 @@ class BotClient(discord.Client):
             "!echo": self.echo,
             "!help": self.rtfm,
             "!rtfm": self.rtfm,
-            "!quote": self.show_quote
+            "!quote": self.show_quote,
+            "!addquote": self.add_quote
         }
 
         words = re.findall(r'\w+', message.content)
