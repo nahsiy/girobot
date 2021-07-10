@@ -46,7 +46,7 @@ class BotClient(discord.Client):
             "!echo": self.echo,
             "!help": self.rtfm,
             "!rtfm": self.rtfm,
-            "!quote": self.show_random_quote
+            "!quote": self.show_quote
         }
 
         words = re.findall(r'\w+', message.content)
@@ -95,18 +95,20 @@ class BotClient(discord.Client):
         """Repète Jacquot"""
         await channel.send(phrase + " ducon")
 
-    async def show_random_quote(self, channel, _rien):
-        """Balance une quote random"""
-        quote = random.choice(list_quotes)
-        embed = discord.Embed(title="Quote", description=quote, color=0x0392E1)
-        embed.set_thumbnail(url="https://share.yishan.io/images/quote.png")
-        await channel.send(embed=embed)
-
     async def rtfm(self, channel, _payload):
         """Fuck you"""
         await channel.send("RTFM!")
-    
 
+    async def show_quote(self, channel, user_choice):
+        """Choisit une quote de la list"""
+        if user_choice:
+            quote = list_quotes[int(user_choice)]
+        else:
+            quote = random.choice(list_quotes)
+        embed = discord.Embed(title="Quote", description=quote, color=0x0392E1)
+        embed.set_thumbnail(url="https://share.yishan.io/images/quote.png")
+        await channel.send(embed=embed)
+        
 
 DISCORD_NUL_BOT = BotClient()
 DISCORD_NUL_BOT.run(TOKEN)
