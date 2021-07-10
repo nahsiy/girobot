@@ -103,7 +103,7 @@ class BotClient(discord.Client):
     async def show_quote(self, channel, user_choice):
         """Choisit une quote de la list"""
         with open("quote.json") as quote_file:
-            list_quotes = json.read(quote_file)
+            list_quotes = json.load(quote_file)
         if user_choice:
             quote = list_quotes[int(user_choice)]
         else:
