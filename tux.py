@@ -59,7 +59,7 @@ class BotClient(discord.Client):
             await message.delete()
             return
         for word in words:
-            if word in CENSORED_WORDS:
+            if word.lower() in CENSORED_WORDS:
                 await message.delete()
                 return
         command = message.content.split()[0]
