@@ -101,7 +101,7 @@ class BotClient(discord.Client):
         await channel.send("RTFM!")
 
     async def show_quote(self, channel, user_choice):
-        """Choisit une quote de la list"""
+        """Choisit une quote de la list ou mode random"""
         with open("quote.json") as quote_file:
             list_quotes = json.load(quote_file)
         if user_choice:
@@ -114,7 +114,14 @@ class BotClient(discord.Client):
         
     async def add_quote(self, channel, quote):
         """Ajouter une quote"""
-
+        with open("quote.json") as quote_file:
+            list_quotes = json.load(quote_file)
+        list_quotes.append(quote)
+        with open("quote.json","w") as quote_file:
+            json.dump(list_quotes, quote_file)
+        embed = discord.Embed(title="Quote", description="La quote a été ajoutée", color=0x0392E1)
+        embed.set_thumbnail(url="https://share.yishan.io/images/quote.png")
+        await channel.send(embed=embed)
 
 
 
