@@ -27,6 +27,7 @@ CENSORED_WORDS = (
     "tg",
     "menfou",
     "ftg",
+    "fdp"
 )
 
 
@@ -123,7 +124,6 @@ class BotClient(discord.Client):
         embed = discord.Embed(title="Quote", description="La quote a été ajoutée", color=0x0392E1)
         embed.set_thumbnail(url="https://share.yishan.io/images/quote.png")
         await channel.send(embed=embed)
-
 
 
 DISCORD_NUL_BOT = BotClient()
