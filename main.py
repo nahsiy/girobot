@@ -28,10 +28,8 @@ load_dotenv(dotenv_path="config")
 # Initialisation du Bot
 
 class BotClient(discord.Client):
-    """Discord bot client"""
-
+    
     async def on_ready(self):
-        """The Discord client is ready"""
         game = discord.Game("We are fsociety. We are free. We are awake")
         await self.change_presence(status=discord.Status.online, activity=game)
 
@@ -57,7 +55,6 @@ class BotClient(discord.Client):
 # Ping
 
     async def ping(self, channel, _payload):
-        """Sends pong"""
         await channel.send("pong")
 
 # Rechercher une définition sur Urban
@@ -85,9 +82,8 @@ class BotClient(discord.Client):
 
 # Echo
 
-    async def echo(self, channel, phrase):
-        """Repète Jacquot"""
-        await channel.send(phrase + " ducon")
+#    async def echo(self, channel, phrase):
+#        await channel.send(phrase + " ")
 
 # RTFM
 
