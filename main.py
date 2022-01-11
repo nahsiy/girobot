@@ -1,4 +1,4 @@
-#### Bot Discord de Fsociety
+#### Bot Discord de Giroll
 
 # Import des librairies
 
@@ -21,22 +21,22 @@ LOGGER.setLevel(logging.DEBUG)
 
 # Sécurisation du tocken
 
-load_dotenv(dotenv_path="config")
+load_dotenv()
 
 
 
 # Initialisation du Bot
 
 class BotClient(discord.Client):
-    
+
     async def on_ready(self):
-        game = discord.Game("We are fsociety. We are free. We are awake")
+        game = discord.Game("SuperTux")
         await self.change_presence(status=discord.Status.online, activity=game)
 
 # Définition des commandes
 
     async def on_message(self, message):
-       
+
         bot_commands = {
             "!ping": self.ping,
             "!urban": self.urbandef,
@@ -105,7 +105,7 @@ class BotClient(discord.Client):
 # Quote
 ### Choisit une quote de la list ou mode random
     async def show_quote(self, channel, user_choice):
-        
+
         with open("quote.json") as quote_file:
             list_quotes = json.load(quote_file)
         if user_choice:
@@ -116,7 +116,7 @@ class BotClient(discord.Client):
         embed.set_thumbnail(url="https://share.yishan.io/images/quote.png")
         await channel.send(embed=embed)
 
-### Ajouter une quote   
+### Ajouter une quote
 
     async def add_quote(self, channel, quote):
 
@@ -130,5 +130,5 @@ class BotClient(discord.Client):
         await channel.send(embed=embed)
 
 
-fsociety = BotClient()
-fsociety.run(os.getenv("TOKEN"))
+girobot = BotClient()
+girobot.run(os.getenv("TOKEN"))
