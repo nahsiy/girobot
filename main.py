@@ -30,7 +30,7 @@ load_dotenv(dotenv_path="config")
 class BotClient(discord.Client):
     
     async def on_ready(self):
-        game = discord.Game("We are fsociety. We are free. We are awake")
+        game = discord.Game("SuperTux")
         await self.change_presence(status=discord.Status.online, activity=game)
 
 # Définition des commandes
@@ -130,5 +130,5 @@ class BotClient(discord.Client):
         await channel.send(embed=embed)
 
 
-fsociety = BotClient()
-fsociety.run(os.getenv("TOKEN"))
+girobot = BotClient()
+girobot.run(os.getenv("TOKEN")
