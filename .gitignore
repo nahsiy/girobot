@@ -1,6 +1,6 @@
 __pycache__
 .env
 .vscode
-.gitattributes
+gitattributes
 config
 venv
