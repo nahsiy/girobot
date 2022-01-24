@@ -1,5 +1,6 @@
 __pycache__
 .env
-quote.py
 .vscode
-quotes.json
+.gitattributes
+config
+venv
