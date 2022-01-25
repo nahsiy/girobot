@@ -4,3 +4,7 @@ __pycache__
 gitattributes
 config
 venv
+config
+config
+.idea/workspace.xml
+config

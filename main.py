@@ -14,10 +14,12 @@ import sqlite3
 from pyparsing import Word
 from dotenv import load_dotenv
 
-load_dotenv(dotenv_path="config")
-
 ##### Misen en place du Prefixe #####
 bot = commands.Bot(command_prefix='!')
+
+load_dotenv(dotenv_path="config")
+
+
 
 ##### Initialisation du Bot #####
 @bot.event
@@ -27,7 +29,7 @@ async def on_ready():
     print ("Connected to discord")
 
 ##### Ping #####
-@bot.command(pass_context=True)
+@bot.command()
 async def ping(ctx):
     await ctx.send("pong")
     print ("ping envoyé")
@@ -180,16 +182,16 @@ async def bière_error(ctx, error):
     if isinstance(error, commands.MissingRequiredArgument):
         await ctx.send(f"Girobot offre une bière à {ctx.author.mention}")
 
-#### Les mots interdits ####
-@bot.event
-async def on_message(message):
-    if message.author.id == bot.user.id:
-        return
-    msg_content = message.content.lower()
-    words_forbidden= ['lol','mdr','ptdr', 'windows']
-    if any(word in msg_content for word in words_forbidden):
-        await message.delete()
-        await message.channel.send(f"{message.author.mention}, attention à ton langage !")
+# #### Les mots interdits ####
+# @bot.event
+# async def on_message(message):
+#     if message.author.id == bot.user.id:
+#         return
+#     msg_content = message.content.lower()
+#     words_forbidden= ['lol','mdr','ptdr', 'windows']
+#     if any(word in msg_content for word in words_forbidden):
+#         await message.delete()
+#         await message.channel.send(f"{message.author.mention}, attention à ton langage !")
 
 
 ####################  </NOSTALGIE BOT IRC> ###################
