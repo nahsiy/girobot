@@ -37,7 +37,7 @@ async def ping(ctx):
 
 """<QUOTES>"""
 # Verifier que la base de données est créée et lancée
-db = sqlite3.connect('/home/yishan/girobot/quotes.db')
+db = sqlite3.connect('c:/home/yishan/girobot/quotes.db')
 cursor = db.cursor()
 cursor.execute('CREATE TABLE IF NOT EXISTS quotes(hash TEXT primary key, user TEXT, message TEXT, date_added TEXT)')
 print("Loaded database")
@@ -115,7 +115,7 @@ async def random(ctx):
     await ctx.send(embed=style)
 
 
-# Afficher une quote d'un utilisateur précis aléatoirement #####
+# Afficher une quote d'un utilisateur précis aléatoirement
 @bot.command()
 async def getquote(ctx, message: str):
     # sanitise name
@@ -162,6 +162,7 @@ async def cafe(ctx, member: discord.Member):
 async def cafe_error(ctx, error):
     if isinstance(error, commands.MissingRequiredArgument):
         await ctx.send(f"Girobot offre un café à {ctx.author.mention}")
+        print("here")
 
 
 @bot.command()
@@ -191,7 +192,8 @@ async def biere_error(ctx, error):
 # Les mots interdits
 @bot.event
 async def on_message(message):
-    if message.author.id == bot.user.id:
+    await bot.process_commands(message)  # https://stackoverflow.com/questions/62076257/discord-py-bot-event
+    if message.author == bot.user:
         return
     msg_content = message.content.lower()
     words_forbidden = ['lol', 'mdr', 'ptdr', 'windows']
