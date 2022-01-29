@@ -7,7 +7,6 @@ from lib2to3.pgen2.token import ASYNC
 import os
 import discord
 from discord.ext import commands
-from discord.ext.commands import Bot
 import datetime
 import hashlib
 import sqlite3
@@ -162,7 +161,6 @@ async def cafe(ctx, member: discord.Member):
 async def cafe_error(ctx, error):
     if isinstance(error, commands.MissingRequiredArgument):
         await ctx.send(f"Girobot offre un café à {ctx.author.mention}")
-        print("here")
 
 
 @bot.command()
@@ -189,7 +187,20 @@ async def biere_error(ctx, error):
         await ctx.send(f"Girobot offre une bière à {ctx.author.mention}")
 
 
+@bot.command()
+async def coca(ctx, member: discord.Member):
+    user = member.mention
+    await ctx.send(f"{ctx.author.display_name} offre un coca à {user}")
+
+
+@coca.error
+async def coca_error(ctx, error):
+    if isinstance(error, commands.MissingRequiredArgument):
+        await ctx.send(f"Girobot offre un coca à {ctx.author.mention}")
+
 # Les mots interdits
+
+
 @bot.event
 async def on_message(message):
     await bot.process_commands(message)  # https://stackoverflow.com/questions/62076257/discord-py-bot-event
@@ -203,6 +214,30 @@ async def on_message(message):
 
 
 '''</NOSTALGIE BOT IRC>'''
+
+'''<GESTION DU SERVEUR>'''
+
+
+@bot.command()
+async def rules(ctx):
+    await ctx.send("Keep Cool And Use Linux")
+
+
+@bot.command()
+@commands.has_permissions(administrator=True)
+async def warning(ctx, membre: discord.Member):
+    pseudo = membre.mention
+    id = membre.id
+    await ctx.send(f"le membre {pseudo} a reçu un avertissement, attention à bien respecter les règles du serveur !")
+
+
+@warning.error
+async def warning_error(ctx, error):
+    if isinstance(error, commands.MissingRequiredArgument):
+        await ctx.send("La commande est : !warning @pseudo")
+
+
+'''</GESTION DU SERVEUR>'''
 
 '''TOKEN'''
 bot.run(os.getenv("TOKEN"))
